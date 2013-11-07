@@ -34,11 +34,14 @@ BluetoothAdapter mBluetoothAdapter;
 		final BluetoothManager bluetoothManager =
 		        (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
 		mBluetoothAdapter = bluetoothManager.getAdapter();
-		
 		// displays a dialog requesting user permission to enable Bluetooth.
 		if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
 		    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
 		    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+		}
+		if (mBluetoothAdapter.isEnabled()){
+			DeviceScanActivity scanner = new DeviceScanActivity();
+			scanner.scanLeDevice(true);
 		}
 	}
 }
