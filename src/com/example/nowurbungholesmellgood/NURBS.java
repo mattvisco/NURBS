@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 
 
@@ -30,6 +31,7 @@ public class NURBS extends Activity {
 BluetoothAdapter mBluetoothAdapter;
 
 	public void initializeBluetooth(){
+		Log.i("debugging", "in initialize bluetooth");
 		// Initializes Bluetooth adapter.
 		final BluetoothManager bluetoothManager =
 		        (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
@@ -40,8 +42,10 @@ BluetoothAdapter mBluetoothAdapter;
 		    startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
 		}
 		if (mBluetoothAdapter.isEnabled()){
+			Log.i("debugging", "calling scanner");
 			DeviceScanActivity scanner = new DeviceScanActivity();
-			scanner.scanLeDevice(true);
+		
+			scanner.scanLeDevice(true, bluetoothManager);
 		}
 	}
 }

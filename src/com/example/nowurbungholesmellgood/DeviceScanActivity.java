@@ -5,6 +5,8 @@ import java.util.UUID;
 import android.app.ListActivity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
+import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
 
@@ -28,14 +30,20 @@ public class DeviceScanActivity extends ListActivity {
      * providing an array of UUID objects that specify the GATT services your app supports.
      * @param enable
      */
-   public void scanLeDevice(final boolean enable) {
+   public void scanLeDevice(final boolean enable, BluetoothManager bluetoothManager) {
+	   mHandler = new Handler();
+	   mBluetoothAdapter =  bluetoothManager.getAdapter();
+	   Log.i("debugging", "in scanLeDevice");
         if (enable) {
             // Stops scanning after a pre-defined scan period.
+        	
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                	Log.i("debugging", "in run");
                     mScanning = false;
                     mBluetoothAdapter.stopLeScan(mLeScanCallback);
+                    Log.i("debugging", "end of run");
                 }
             }, SCAN_PERIOD);
 
